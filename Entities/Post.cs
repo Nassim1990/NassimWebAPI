@@ -21,10 +21,11 @@ namespace NassimWebAPI.Entities
 
        
 
-        public Post(string title, string contents)
+        public Post(string title, string contents, int cateGoryId)
         {
             Title = title;
             Contents = contents;
+            CateGoryId = cateGoryId;
         }
     }
 }

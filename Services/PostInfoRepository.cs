@@ -11,9 +11,12 @@ namespace NassimWebAPI.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Task<IEnumerable<Post>> AddPostsAsync(string title, string contents, string categoryId)
+        public async Task AddPostAsync(string title, string contents, int categoryId)
         {
-            throw new NotImplementedException();
+            Post post = new Post(title, contents, categoryId);
+            post.TimeStamp = DateTime.UtcNow;
+
+            await _context.Posts.AddAsync(post);
         }
 
         public async Task<IEnumerable<Category>> GetCategoriesAsync()

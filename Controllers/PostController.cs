@@ -34,5 +34,12 @@ namespace NassimWebAPI.Controllers
 
             return Ok(res);
         }
+
+        //public async Task<ActionResult> AddPost(string title, string contents, int categoryId)
+        //{
+        //    await _postInfoRepository.AddPostAsync(title, contents, categoryId);
+        //    await _postInfoRepository.SaveChangesAsync();            
+        //    return Ok(); // should return the saved entity - no time
+        //}
     }
 }

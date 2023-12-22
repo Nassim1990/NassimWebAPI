@@ -10,7 +10,7 @@ namespace NassimWebAPI.Services
 
         Task<IEnumerable<Category>> GetCategoriesAsync();
 
-        Task<IEnumerable<Post>> AddPostsAsync(string title, string contents, string categoryId);
+        Task AddPostAsync(string title, string contents, int categoryId);
 
         Task<bool> SaveChangesAsync();
     }
