@@ -1,0 +1,6 @@
+@NassimWebAPI_HostAddress = http://localhost:5187
+
+GET {{NassimWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
