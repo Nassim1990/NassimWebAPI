@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using NassimWebAPI.DbContexts;
+using NassimWebAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<PostInfoContext>(dbContextOptions => dbContextOptions.UseSqlite("Data Source=PostInfo.db"));
+
+builder.Services.AddScoped<IPostInfoRepository, PostInfoRepository>();
 
 var app = builder.Build();
 
@@ -20,6 +28,13 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseRouting();
+
+app.UseEndpoints(endpoints => 
+{
+    endpoints.MapControllers();
+}); 
+
+
 
 app.Run();
