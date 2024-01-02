@@ -11,12 +11,19 @@ namespace NassimWebAPI.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task AddPostAsync(string title, string contents, int categoryId)
+        public async Task AddPostAsync(Post post)
         {
-            Post post = new Post(title, contents, categoryId);
-            post.TimeStamp = DateTime.UtcNow;
-
             await _context.Posts.AddAsync(post);
+        }
+
+        public void DeletePost(int postId)
+        {
+            _context.Posts.Remove(_context.Posts.Where(p=> p.Id == postId).FirstOrDefault());
+        }
+
+        public void DeleteAllPost()
+        {
+            _context.Posts.RemoveRange(_context.Posts);
         }
 
         public async Task<IEnumerable<Category>> GetCategoriesAsync()

@@ -35,11 +35,43 @@ namespace NassimWebAPI.Controllers
             return Ok(res);
         }
 
-        //public async Task<ActionResult> AddPost(string title, string contents, int categoryId)
-        //{
-        //    await _postInfoRepository.AddPostAsync(title, contents, categoryId);
-        //    await _postInfoRepository.SaveChangesAsync();            
-        //    return Ok(); // should return the saved entity - no time
-        //}
+        [HttpPost]
+        public async Task<ActionResult> AddPost(string title, string contents, int categoryId)
+        {
+            Post post = new Post(title, contents, categoryId);
+            post.TimeStamp = DateTime.UtcNow;
+            await _postInfoRepository.AddPostAsync(post);
+            await _postInfoRepository.SaveChangesAsync();
+            return Ok(post); 
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdatePost(int id, string title, string contents, int categoryId)
+        {
+            Post post =  await _postInfoRepository.GetPostAsync(id);
+            post.TimeStamp = DateTime.UtcNow;
+            post.Title = title;
+            post.Contents = contents;
+            post.CateGoryId = categoryId;
+            
+            await _postInfoRepository.SaveChangesAsync();
+            return Ok(post); 
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeletePost(int id)
+        {
+            _postInfoRepository.DeletePost(id);
+            await _postInfoRepository.SaveChangesAsync();
+            return Ok(); 
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteAllPost()
+        {
+            _postInfoRepository.DeleteAllPost();
+            await _postInfoRepository.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
